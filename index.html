@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-POP IDOL EMPIRE - 產業管理大師</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #0f111a;
+            color: #f1f5f9;
+        }
+
+        .kpop-gradient-text {
+            background: linear-gradient(to right, #ec4899, #a855f7, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #ec4899;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="selection:bg-pink-500/30">
+
+    <div class="max-w-6xl mx-auto px-4 py-8 md:py-12">
+        <!-- 頁首 -->
+        <header class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12 border-b border-slate-800 pb-10">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-black tracking-tighter kpop-gradient-text mb-3">
+                    K-POP IDOL EMPIRE
+                </h1>
+                <p class="text-slate-400 flex items-center gap-2 font-medium">
+                    <i class="fas fa-globe-asia text-cyan-400"></i> 產業級經紀公司管理與市場分析平台
+                </p>
+            </div>
+
+            <!-- 導航分頁 -->
+            <nav class="flex bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800">
+                <button onclick="switchTab('planner')" id="nav-planner" class="nav-btn px-6 py-2.5 rounded-xl text-sm font-bold transition-all bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg">
+                    <i class="fas fa-bolt mr-2"></i>企劃製作
+                </button>
+                <button onclick="switchTab('wiki')" id="nav-wiki" class="nav-btn px-6 py-2.5 rounded-xl text-sm font-bold text-slate-400 hover:text-white transition-all">
+                    <i class="fas fa-book-open mr-2"></i>百科術語
+                </button>
+                <button onclick="switchTab('insights')" id="nav-insights" class="nav-btn px-6 py-2.5 rounded-xl text-sm font-bold text-slate-400 hover:text-white transition-all">
+                    <i class="fas fa-chart-line mr-2"></i>趨勢分析
+                </button>
+            </nav>
+        </header>
+
+        <!-- 內容區域 -->
+        <main>
+            <!-- 企劃製作分頁 -->
+            <section id="planner" class="tab-content active">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- 左側表單 -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="glass-card rounded-3xl p-8">
+                            <h2 class="text-xl font-bold mb-8 flex items-center gap-3">
+                                <span class="w-10 h-10 bg-pink-500/20 rounded-xl flex items-center justify-center text-pink-500">
+                                    <i class="fas fa-music"></i>
+                                </span>
+                                出道企劃書
+                            </h2>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">1. 團體名稱</label>
+                                        <input type="text" id="group-name" placeholder="例如: K-STAR X" 
+                                               class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-pink-500/50 outline-none transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">2. 經紀公司規模</label>
+                                        <select id="agency" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-pink-500/50 outline-none">
+                                            <option value="1.5">四大經紀公司 (HYBE/SM/JYP/YG)</option>
+                                            <option value="1.1" selected>中型經紀公司 (有穩定資源)</option>
+                                            <option value="0.8">小型經紀公司 (白手起家)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">3. 核心概念 (Concept)</label>
+                                        <div class="grid grid-cols-2 gap-3" id="concept-container">
+                                            <!-- 由 JS 動態生成 -->
+                                        </div>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div class="flex justify-between items-end">
+                                            <label class="text-xs font-black text-slate-500 uppercase tracking-widest">4. 成員人數: <span id="val-members" class="text-pink-500">5</span></label>
+                                        </div>
+                                        <input type="range" min="1" max="13" value="5" class="custom-slider" oninput="updateVal('members', this.value)">
+                                        
+                                        <div class="flex justify-between items-end">
+                                            <label class="text-xs font-black text-slate-500 uppercase tracking-widest">5. 行銷預算投報: <span id="val-budget" class="text-purple-500">50</span>%</label>
+                                        </div>
+                                        <input type="range" min="0" max="100" value="50" class="custom-slider" style="accent-color: #a855f7;" oninput="updateVal('budget', this.value)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button onclick="simulateLaunch()" class="w-full mt-10 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:opacity-90 text-white font-black py-5 rounded-2xl shadow-xl shadow-purple-900/30 transform transition active:scale-[0.98] flex items-center justify-center gap-3">
+                                啟動市場模擬 <i class="fas fa-rocket"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 右側結果 -->
+                    <div class="space-y-6">
+                        <div id="result-card" class="glass-card rounded-3xl p-8 min-h-[400px] flex flex-col items-center justify-center text-center">
+                            <div class="p-6 bg-slate-800/50 rounded-full mb-6">
+                                <i class="fas fa-info-circle text-3xl text-slate-600"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-400">等待企劃啟動</h3>
+                            <p class="text-sm text-slate-600 mt-2">請完成左側表單設定，<br>查看市場對該團體的預測反應。</p>
+                        </div>
+
+                        <!-- 市場熱度表 -->
+                        <div class="glass-card rounded-3xl p-6">
+                            <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <i class="fas fa-fire text-orange-500"></i> 當前市場概念熱度
+                            </h3>
+                            <div class="space-y-5" id="trend-bars">
+                                <!-- 由 JS 動態生成 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 百科術語分頁 -->
+            <section id="wiki" class="tab-content">
+                <div class="glass-card rounded-3xl p-8 min-h-[600px]">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+                        <div>
+                            <h2 class="text-2xl font-black flex items-center gap-3">
+                                <i class="fas fa-book-open text-green-500"></i> 飯圈術語小百科
+                            </h2>
+                            <p class="text-slate-500 text-sm mt-1">掌握追星族與產業內部的專業對話</p>
+                        </div>
+                        <div class="relative flex-1 max-w-md">
+                            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-600"></i>
+                            <input type="text" id="wiki-search" oninput="filterWiki(this.value)" placeholder="搜尋術語... (例如: 回歸, 忙內)" 
+                                   class="w-full bg-slate-950 border border-slate-800 rounded-2xl pl-12 pr-6 py-4 focus:ring-2 focus:ring-green-500/50 outline-none transition-all">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="wiki-container">
+                        <!-- 由 JS 動態生成 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 趨勢分析分頁 -->
+            <section id="insights" class="tab-content">
+                <div class="space-y-8">
+                    <!-- 世代演進 -->
+                    <div class="glass-card rounded-3xl p-8">
+                        <h2 class="text-2xl font-black mb-8 flex items-center gap-3">
+                            <i class="fas fa-star text-yellow-500"></i> K-POP 世代發展史
+                        </h2>
+                        <div class="space-y-4" id="gen-timeline">
+                            <!-- 由 JS 動態生成 -->
+                        </div>
+                    </div>
+
+                    <!-- 產業統計 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="glass-card rounded-3xl p-6 border-l-4 border-emerald-500">
+                            <div class="text-xs font-bold text-slate-500 mb-1">全球市場產值</div>
+                            <div class="text-2xl font-black text-emerald-400">50億+ USD</div>
+                            <div class="text-[10px] text-slate-600 mt-2 uppercase tracking-tighter">年度持續穩定增長中</div>
+                        </div>
+                        <div class="glass-card rounded-3xl p-6 border-l-4 border-blue-500">
+                            <div class="text-xs font-bold text-slate-500 mb-1">實體專輯出口</div>
+                            <div class="text-2xl font-black text-blue-400">1.2億+ 張</div>
+                            <div class="text-[10px] text-slate-600 mt-2 uppercase tracking-tighter">突破 2023 年歷史紀錄</div>
+                        </div>
+                        <div class="glass-card rounded-3xl p-6 border-l-4 border-pink-500">
+                            <div class="text-xs font-bold text-slate-500 mb-1">社群聲量排名</div>
+                            <div class="text-2xl font-black text-pink-400">全球第 #1</div>
+                            <div class="text-[10px] text-slate-600 mt-2 uppercase tracking-tighter">Twitter 最活躍討論話題</div>
+                        </div>
+                        <div class="glass-card rounded-3xl p-6 border-l-4 border-purple-500">
+                            <div class="text-xs font-bold text-slate-500 mb-1">大型演唱會</div>
+                            <div class="text-2xl font-black text-purple-400">5,000+ 場</div>
+                            <div class="text-[10px] text-slate-600 mt-2 uppercase tracking-tighter">跨足全球超過 80 個國家</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 頁尾 -->
+        <footer class="mt-20 text-center border-t border-slate-900 pt-10 pb-12">
+            <p class="text-slate-600 text-xs font-bold tracking-widest mb-2 uppercase">
+                &copy; 2024 K-POP INDUSTRY MASTER HUB | 數據驅動企劃工具
+            </p>
+            <p class="text-slate-800 text-[10px] max-w-2xl mx-auto px-4">
+                本工具所提供之數據模擬基於當前韓流市場演算法模型計算，結果僅供娛樂與產業研究參考。祝您的本命偶像永遠走花路！
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // --- 數據資料庫 ---
+        const concepts = [
+            { id: 'girl-crush', name: 'Girl Crush', trend: 95, color: 'from-pink-600 to-purple-700' },
+            { id: 'y2k', name: 'Y2K 復古', trend: 90, color: 'from-blue-400 to-green-400' },
+            { id: 'elegant', name: '優雅華麗', trend: 70, color: 'from-yellow-200 to-yellow-500' },
+            { id: 'refreshing', name: '清爽元氣', trend: 85, color: 'from-cyan-400 to-blue-500' },
+            { id: 'experimental', name: '實驗性風格', trend: 60, color: 'from-gray-700 to-black' }
+        ];
+
+        const dictionary = [
+            { term: '本命 (Bias)', def: '團體中最喜歡的一位成員。' },
+            { term: '一位 (First Win)', def: '在音樂節目中獲得當週冠軍，是人氣的重要指標。' },
+            { term: '忙內 (Maknae)', def: '團體中年紀最小的成員。' },
+            { term: '回歸 (Comeback)', def: '藝人帶著全新音樂作品重新開始宣傳活動。' },
+            { term: '大賞 (Daesang)', def: '年末頒獎典禮中的最高榮譽，如年度藝人。' },
+            { term: '直拍 (Fancam)', def: '單獨拍攝某一位成員在表演中的全程影像。' },
+            { term: '結尾妖精', def: '表演結束後，攝影機給予特定成員的定格特寫。' },
+            { term: '全能藝人', def: '唱跳、饒舌、綜藝感皆在水準之上的藝人。' },
+            { term: '練習生 (Trainee)', def: '尚未出道、在公司接受培訓的準藝人。' }
+        ];
+
+        const generations = [
+            { gen: '1代', years: '1996-2004', groups: 'H.O.T, S.E.S, Shinhwa', focus: '韓流起源、電視媒體主導' },
+            { gen: '2代', years: '2005-2011', groups: 'BigBang, SNSD, Super Junior', focus: '亞洲擴張、YouTube 興起初期' },
+            { gen: '3代', years: '2012-2017', groups: 'BTS, TWICE, BLACKPINK', focus: '全球化爆發、社群媒體經營核心' },
+            { gen: '4代', years: '2018-2022', groups: 'IVE, NewJeans, Stray Kids', focus: '數位原生、強烈世界觀設定' },
+            { gen: '5代', years: '2023+', groups: 'RIIZE, ZEROBASEONE, BABYMONSTER', focus: '短影音優先、個性化發展' }
+        ];
+
+        let selectedConceptId = 'girl-crush';
+
+        // --- 初始化頁面 ---
+        function init() {
+            renderConcepts();
+            renderTrendBars();
+            renderWiki();
+            renderTimeline();
+        }
+
+        // --- 功能函數 ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-gradient-to-r', 'from-pink-600', 'to-purple-600', 'text-white', 'shadow-lg');
+                btn.classList.add('text-slate-400');
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            activeBtn.classList.remove('text-slate-400');
+            activeBtn.classList.add('bg-gradient-to-r', 'from-pink-600', 'to-purple-600', 'text-white', 'shadow-lg');
+        }
+
+        function updateVal(id, val) {
+            document.getElementById(`val-${id}`).innerText = val;
+        }
+
+        function renderConcepts() {
+            const container = document.getElementById('concept-container');
+            container.innerHTML = concepts.map(c => `
+                <button onclick="selectConcept('${c.id}')" id="btn-${c.id}" class="concept-btn p-3 rounded-2xl border ${c.id === selectedConceptId ? 'border-pink-500 bg-pink-500/5' : 'border-slate-800 bg-slate-950'} transition-all text-left">
+                    <div class="w-full h-1 bg-gradient-to-r ${c.color} rounded-full mb-3"></div>
+                    <div class="text-[10px] font-bold text-slate-200">${c.name}</div>
+                </button>
+            `).join('');
+        }
+
+        function selectConcept(id) {
+            selectedConceptId = id;
+            renderConcepts();
+        }
+
+        function renderTrendBars() {
+            const container = document.getElementById('trend-bars');
+            container.innerHTML = concepts.slice(0, 4).map(c => `
+                <div>
+                    <div class="flex justify-between text-[10px] font-black mb-2">
+                        <span class="text-slate-400">${c.name}</span>
+                        <span class="text-slate-500">${c.trend}%</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r ${c.color}" style="width: ${c.trend}%"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderWiki(filter = '') {
+            const container = document.getElementById('wiki-container');
+            const filtered = dictionary.filter(d => d.term.includes(filter) || d.def.includes(filter));
+            
+            container.innerHTML = filtered.map(d => `
+                <div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl hover:border-pink-500/30 transition-all hover:bg-slate-900 group">
+                    <h4 class="font-black text-pink-500 text-lg mb-2 flex justify-between items-center">
+                        ${d.term}
+                        <i class="fas fa-heart text-slate-800 group-hover:text-pink-600 transition-colors text-xs"></i>
+                    </h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">${d.def}</p>
+                </div>
+            `).join('');
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-full py-20 text-center text-slate-600 italic">查無搜尋結果。</div>`;
+            }
+        }
+
+        function filterWiki(val) {
+            renderWiki(val);
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('gen-timeline');
+            container.innerHTML = generations.map(g => `
+                <div class="p-6 bg-slate-950 border border-slate-800 rounded-2xl flex flex-col md:flex-row gap-6 md:items-center hover:bg-slate-900 transition-colors">
+                    <div class="md:w-32 flex-shrink-0">
+                        <div class="text-[10px] font-black text-slate-600 mb-1 uppercase tracking-widest">${g.years}</div>
+                        <div class="text-2xl font-black text-yellow-500">${g.gen}</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-slate-200 font-bold mb-1">${g.groups}</div>
+                        <div class="text-sm text-slate-500">${g.focus}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function simulateLaunch() {
+            const groupName = document.getElementById('group-name').value;
+            if (!groupName) {
+                alert("請先輸入團體名稱！");
+                return;
+            }
+
+            const resultContainer = document.getElementById('result-card');
+            resultContainer.innerHTML = `
+                <div class="flex flex-col items-center gap-4">
+                    <div class="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-pink-500 font-black tracking-widest text-sm">正在分析全球大數據...</p>
+                </div>
+            `;
+
+            setTimeout(() => {
+                const conceptObj = concepts.find(c => c.id === selectedConceptId);
+                const agencyMult = parseFloat(document.getElementById('agency').value);
+                const budget = parseInt(document.getElementById('val-budget').innerText);
+                const members = parseInt(document.getElementById('val-members').innerText);
+
+                // 簡單算法模型
+                const baseScore = conceptObj.trend;
+                const balancePenalty = Math.abs(5 - members) * 2;
+                const finalScore = Math.min(100, Math.floor((baseScore + (budget * 0.3) - balancePenalty) * (agencyMult === 1.5 ? 1.2 : agencyMult)));
+
+                let rank = 'D';
+                let title = '默默無聞';
+                if (finalScore > 90) { rank = 'S+'; title = '傳奇巨星 (Global Legend)'; }
+                else if (finalScore > 80) { rank = 'A'; title = '大勢團體'; }
+                else if (finalScore > 65) { rank = 'B'; title = '人氣回歸中'; }
+                else if (finalScore > 50) { rank = 'C'; title = '持續努力中'; }
+
+                const sales = Math.floor(finalScore * agencyMult * 25000).toLocaleString();
+
+                resultContainer.innerHTML = `
+                    <div class="animate-in fade-in zoom-in duration-500">
+                        <div class="inline-block px-4 py-1 bg-pink-500/10 text-pink-500 rounded-full text-[10px] font-black mb-4 uppercase tracking-widest">
+                            ${groupName} 市場分析報告
+                        </div>
+                        <div class="text-8xl font-black text-white mb-2 drop-shadow-[0_0_15px_rgba(236,72,153,0.3)]">${rank}</div>
+                        <div class="text-xl font-black text-slate-200 mb-8 tracking-tight">${title}</div>
+                        
+                        <div class="space-y-3 w-full max-w-[280px] mx-auto">
+                            <div class="flex items-center justify-between p-4 bg-slate-950/80 rounded-2xl border border-slate-800">
+                                <span class="text-[10px] text-slate-500 uppercase font-black">預估專輯銷量</span>
+                                <span class="font-bold text-cyan-400 text-sm">${sales} 張</span>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-slate-950/80 rounded-2xl border border-slate-800">
+                                <span class="text-[10px] text-slate-500 uppercase font-black">綜合成功指數</span>
+                                <span class="font-bold text-purple-400 text-sm">${finalScore}%</span>
+                            </div>
+                        </div>
+                        <button onclick="resetPlanner()" class="mt-8 text-xs text-slate-500 hover:text-pink-500 underline underline-offset-4">重新製作企劃</button>
+                    </div>
+                `;
+            }, 1500);
+        }
+
+        function resetPlanner() {
+            document.getElementById('group-name').value = '';
+            document.getElementById('result-card').innerHTML = `
+                <div class="p-6 bg-slate-800/50 rounded-full mb-6">
+                    <i class="fas fa-info-circle text-3xl text-slate-600"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-400">等待企劃啟動</h3>
+                <p class="text-sm text-slate-600 mt-2">請完成左側表單設定，<br>查看市場對該團體的預測反應。</p>
+            `;
+        }
+
+        // 啟動載入
+        window.onload = init;
+    </script>
+</body>
+</html>
